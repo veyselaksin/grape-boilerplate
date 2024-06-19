@@ -1,0 +1,18 @@
+basePath: /v1
+host: localhost:8000
+info:
+  contact:
+    email: fiber@swagger.io
+    name: API Support
+  description: This is a server for Viodash Youtube API.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Viodash Youtube API
+  version: "1.0"
+paths: {}
+schemes:
+- http
+- https
+swagger: "2.0"

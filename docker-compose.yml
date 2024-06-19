@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15.0
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - demo-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1.1    
+    ports:
+      - 8181:8080
+    command: -v start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KC_DB: postgres
+      KC_DB_URL_HOST: db
+      KC_DB_URL_DATABASE: postgres
+      KC_DB_URL_PORT: 5432
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      # KC_DB_PASSWORD: xyz123ABC$
+    volumes:
+      - keycloak:/opt/keycloak/data/import
+    networks:
+      - demo-network
+
+  # api:
+  #   build: 
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   container_name: api
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - .:/app
+  #   ports:
+  #     - 8000:8000
+  #   depends_on:
+  #     - db
+
+networks:
+  demo-network:
+
+volumes:
+  postgres-data:
+  keycloak:
